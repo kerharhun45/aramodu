@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>Kosár</h1>
+
+    <iframe name="joska" style="display:none;"></iframe>
+
+    <form method="post" action=" {{ url_for('cart') }} ">
+         <input type="hidden" name="delete" value="-1">
+         <input type="hidden" name="add" value="-1">
+         <button type="submit" class="btn btn-danger">Ürítés</button>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Név</th>
+            <th>Ár</th>
+            <th>Kép</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for recipe in recipes %}
+            <tr class="clickable-row" data-href="{{ url_for('view', recipe_id=recipe.id) }}">
+                <td>{{ recipe.nev }}</td>
+                <td>
+                    {{ recipe.ar }} {{ recipe.merte }}
+                </td>
+                <td>
+                    <img src="{{ recipe.kep }}" alt="{{ recipe.nev }}" class="img-fluid">
+                </td>
+                <td>
+                    <!-- Gombok egymás alatt, de inline-block stílussal, hogy ne legyenek szélesebbek a szövegnél -->
+                    <span class="btn btn-secondary d-inline-block mb-2">Megtekintés</span>
+                    <form method="post" action=" {{ url_for('cart') }} ">
+                        <input type="hidden" name="delete" value=" {{ recipe.id }} ">
+                        <input type="hidden" name="add" value="-1">
+                        <button type="submit" class="btn btn-danger d-inline-block">Kivétel</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+
+        <form method="post" action=" {{ url_for('cart') }} ">
+            <input type="hidden" name="delete" value="-2">
+            <input type="hidden" name="add" value="-1">
+            <button type="submit" class="btn btn-primary">Megrendelés</button>
+        </form>
+        </tbody>
+    </table>
+
+    <script>
+    // Kattintható sorok funkciója
+    document.querySelectorAll('.clickable-row').forEach(function(row) {
+        row.addEventListener('click', function() {
+            window.location = row.getAttribute('data-href');
+        });
+    });
+
+    // Megakadályozzuk, hogy a form vagy a gombok aktiválják a sor kattintást
+    document.querySelectorAll('form, form *').forEach(function(el) {
+        el.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+</script>
+
+
+{% endblock %}

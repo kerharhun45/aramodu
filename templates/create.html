@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tétel hozzáadása</title>
+
+    </head>
+
+    <body>
+    <h1>Létrehozás</h1>
+        <form method="post">
+        Név: <input type="text" name="nev" class="form-control">
+            <br>
+        Ár: <input type="number" name="ar" class="form-control">
+            <br>
+        Mértékegység: <input type="text" name="merte" class="form-control">
+            <br>
+        Leírás: <input type="text" name="leiras" class="form-control">
+            <br>
+        Képcím: <input type="text" name="kep" class="form-control">
+            <br>
+        <button type="submit" class="btn btn-secondary">Mentés</button>
+        </form>
+    </body>
+    </html>
+{% endblock %}

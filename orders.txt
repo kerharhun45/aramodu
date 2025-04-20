@@ -1,0 +1,6 @@
+id;username;order_ids
+0;kerhar45;11
+1;radir12;0
+2;radir12;18,20,19,22,21,24,15,14,11,10
+3;kerhar45;2
+4;radir12;6,4,2,1,9,10

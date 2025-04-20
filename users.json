@@ -1,0 +1,22 @@
+{
+  "admin": {
+    "jelszo": "admin123",
+    "admine": "true",
+    "profilkep": ""
+  },
+  "user": {
+    "jelszo": "user123",
+    "admine": "false",
+    "profilkep": ""
+  },
+  "kerhar45": {
+    "jelszo": "abc123",
+    "admine": "true",
+    "profilkep": ""
+  },
+  "radir12": {
+    "jelszo": "radir123",
+    "admine": "true",
+    "profilkep": ""
+  }
+}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ recipe.nev }}</h1>
+    <iframe name="joska" style="display:none;"></iframe>
+
+    <div class="row mb-3">
+        <!-- Termék neve -->
+        <div class="col-md-8">
+            <div class="mb-3">
+                <h4 for="name" class="form-label">Termék neve</h4>
+                <input type="text"
+                       class="form-control"
+                       id="name"
+                       value="{{ recipe.nev }}"
+                       disabled>
+            </div>
+
+            <!-- Ár -->
+            <div class="mb-3">
+                <h4 for="difficulty" class="form-label">Ár</h4>
+                <select class="form-control" id="difficulty" disabled>
+                    <option>{{ recipe.ar }} {{ recipe.merte }}</option>
+                </select>
+            </div>
+
+            <!-- Leírás -->
+            <div class="mb-1"> <!-- Csökkentett margó a Leírás mező alatt -->
+                <h4 for="category" class="form-label">Leírás</h4>
+                <p> {{ recipe.leiras }} </p>
+            </div>
+        </div>
+
+        <!-- Kép a jobb oldalon -->
+        <div class="col-md-4">
+            <img src="{{ recipe.kep }}" alt="Recipe image" class="img-fluid">
+        </div>
+    </div>
+
+    <!-- Close gomb (csökkentett margóval) -->
+    <div class="row g-3 align-items-center">
+        <div class="col-md-12 d-flex justify-content-start">
+            <a href="{{ url_for('list_all') }}" class="btn btn-secondary me-1">Close</a>
+            <form method="post" action=" {{ url_for('cart') }} " target="joska">
+                <input type="hidden" name="add" value="{{ recipe.id }}">
+                <button type="submit" class="btn btn-secondary">Kosárba</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

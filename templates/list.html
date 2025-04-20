@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% set search = True %}
+
+{% block content %}
+    <h1>Termékek</h1>
+    <iframe name="kosar_target" style="display:none;"></iframe>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Név</th>
+            <th>Ár</th>
+            <th>Kép</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for recipe in recipes %}
+            <tr class="clickable-row" data-href="{{ url_for('view', recipe_id=recipe.id) }}">
+                <td>{{ recipe.nev }}</td>
+                <td>
+                    {{ recipe.ar }} {{ recipe.merte }}
+                </td>
+                <td>
+                    <img src="{{ recipe.kep }}" alt="{{ recipe.nev }}" class="img-fluid">
+                </td>
+                <td>
+                    <!-- Gombok egymás alatt, de inline-block stílussal, hogy ne legyenek szélesebbek a szövegnél -->
+                    <span class="btn btn-secondary d-inline-block mb-2">{{ 'Megtekintés' }}</span>
+                    <form method="post" action=" {{ url_for('cart') }} " target="kosar_target">
+                        <input type="hidden" name="add" value="{{ recipe.id }}">
+                        <button type="submit" class="btn btn-secondary d-inline-block">Kosárba</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+    // Kattintható sorok funkciója
+    document.querySelectorAll('.clickable-row').forEach(function(row) {
+        row.addEventListener('click', function() {
+            window.location = row.getAttribute('data-href');
+        });
+    });
+
+    // Megakadályozzuk, hogy a form vagy a gombok aktiválják a sor kattintást
+    document.querySelectorAll('form, form *').forEach(function(el) {
+        el.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+</script>
+
+{% endblock %}

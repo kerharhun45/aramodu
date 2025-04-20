@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Profil</h1>
+
+        <div class="mb-3">
+            <label class="form-label">Felhasználónév</label>
+            <input type="text"
+                   class="form-control"
+                   value="{{ fnev }}"
+                   disabled
+                   >
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Admin jog</label>
+            <input type="text"
+                   class="form-control"
+                   value="{{ admine }}"
+                   name="merte"
+                   disabled
+                   >
+        </div>
+
+{% endblock %}

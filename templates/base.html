@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Áramodú beta1</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/blog.css') }}" rel="stylesheet">
+
+    <style>
+        body {
+            color: #000000;
+            #border: 1px solid green;
+            background-color: #dcdada;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+
+</div>
+<div class="container">
+    <header class="border-bottom lh-1 py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col"></div>
+            <div class="col text-center">
+                {% for message in get_flashed_messages() %}
+<p>{{ message }}</p>
+{% endfor %}
+                <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">
+                    Áramodú
+                </a>
+            </div>
+            <div class="col text-end">
+                {% if search %}
+                    <form>
+                        <div class="row">
+                            <div class="col-auto">
+                                <input name="search" type="text" class="form-control" id="search"
+                                       value="{{ request.args.get('search', '') }}">
+                            </div>
+                            <div class="col-auto">
+                                <label for="search">
+                                    <button type="submit" class="btn btn-primary">Keresés</button>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-scroller py-1 mb-3 border-bottom">
+        <nav class="nav nav-underline">
+            <a class="nav-item nav-link link-body-emphasis" href="{{ url_for('list_all') }}">
+                Kezdőoldal
+            </a>
+            <a class="nav-item nav-link link-body-emphasis" href="{{ url_for('edit') }}">
+                Szerkesztés
+            </a>
+            <a class="nav-item nav-link link-body-emphasis" href="{{ url_for('login') }}">
+                Bejelentkezés
+            </a>
+            <a class="nav-item nav-link link-body-emphasis", href="{{ url_for('profile') }}">
+                {% if session.get('username') %}
+                    Profil: {{ session.get('username') }}
+                {% endif %}
+            </a>
+            <a class="nav-item nav-link link-body-emphasis" href="{{ url_for('cart') }}">
+                Kosár
+            </a>
+
+
+
+        </nav>
+    </div>
+</div>
+
+<main class="container">
+    <div class="row g-5">
+        <div class="col">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</main>
+
+<footer class="py-5 text-center text-body-secondary bg-body-tertiary">
+    <p>
+        <a href="{{ url_for('profile')}}">ÁSZF</a>
+    </p>
+    <p class="mb-0">
+        <a href="#">Back to top</a>
+    </p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

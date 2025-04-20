@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Tétel szerkesztése</h1>
+    <h2>{{ recipe.nev }}</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Termék neve</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   value="{{ recipe.nev }}"
+                   name="nev"
+                   >
+        </div>
+
+        <div class="mb-3">
+            <label for="difficulty" class="form-label">Ár</label>
+            <input type="number"
+                   class="form-control"
+                   id="difficulty"
+                   value="{{ recipe.ar }}"
+                   name="ar"
+                   >
+        </div>
+
+        <div class="mb-3">
+            <label for="difficulty" class="form-label">Mértékegység</label>
+            <input type="text"
+                   class="form-control"
+                   id="sigmaboy"
+                   value="{{ recipe.merte }}"
+                   name="merte"
+                   >
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Leírás</label>
+            <input type="text"
+                   class="form-control"
+                   id="category"
+                   value="{{ recipe.leiras }}"
+                   name="leiras"
+                   >
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Kép</label>
+            <input type="text"
+                   class="form-control"
+                   id="semmise_nemtommijonide"
+                   value="{{ recipe.kep }}"
+                   name="kep"
+                   >
+        </div>
+
+
+    <button type="submit" class="btn btn-secondary">Mentés</button>
+    <a href="{{ url_for('edit') }}" class="btn btn-secondary">Mégse/Vissza</a>
+
+{% endblock %}
