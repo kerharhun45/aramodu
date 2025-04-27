@@ -60,6 +60,39 @@ def next_order_id():
         print(orders[-1]['id'])
         return str(int(orders[-1]['id'])+1)
 
+@app.route("/orders")
+def orders_admin_view():
+    if security():
+        with open("orders.txt","r") as file:
+            file.readline()
+            orders = []
+            for i in file:
+                values = i.strip().split(";")
+                l = []
+                items = values[2].split(",")
+                for item in items:
+                    k = {
+                        'product_id': item.strip(),
+                        'darab': "1"
+                    }
+                    #print(k)
+                    l.append(k)
+                order = {
+                    'id': values[0],
+                    'username': values[1],
+                    'items': l
+                }
+                orders.append(order)
+        for i in range(len(orders)):
+            print(orders[i]['id']+" "+orders[i]['username'])
+            for j in range(len(orders[i]['items'])):
+                print(orders[i]['items'][j])
+        return render_template('orders_admin_view.html', orders=orders)
+
+
+    else:
+        return render_template('notallowed.html')
+
 
 @app.route("/profile")
 def profile():
