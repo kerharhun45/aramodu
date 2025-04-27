@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% set search = True %}
+
+{% block content %}
+    <h1>Rendelések</h1>
+    <iframe name="kosar_target" style="display:none;"></iframe>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Rendelés id</th>
+            <th>Rendelő</th>
+            <th>Tételek</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+    <tr>
+        <td>{{ loop.index }}</td> <!-- Itt az indexet használhatod, loop.index1-től kezdve -->
+        <td>{{ order['username'] }}</td>
+        <td>
+            {% for item in order['items'] %}
+                <div>Termék ID: {{ item['product_id'] }} - Mennyiség: {{ item['darab'] }}</div>
+            {% endfor %}
+        </td>
+        <td>
+            <img src="{{ order['kep'] }}" alt="{{ order['nev'] }}" class="img-fluid">
+        </td>
+        <td>
+            <span class="btn btn-secondary d-inline-block mb-2">Megtekintés</span>
+            <form method="post" action="{{ url_for('cart') }}" target="kosar_target">
+                <input type="hidden" name="add" value="{{ order['id'] }}">
+                <button type="submit" class="btn btn-secondary d-inline-block">Kosárba</button>
+            </form>
+        </td>
+    </tr>
+{% endfor %}
+
+        </tbody>
+    </table>
+
+    <script>
+    // Kattintható sorok funkciója
+    document.querySelectorAll('.clickable-row').forEach(function(row) {
+        row.addEventListener('click', function() {
+            window.location = row.getAttribute('data-href');
+        });
+    });
+
+    // Megakadályozzuk, hogy a form vagy a gombok aktiválják a sor kattintást
+    document.querySelectorAll('form, form *').forEach(function(el) {
+        el.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+</script>
+
+{% endblock %}
